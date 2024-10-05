@@ -1,0 +1,18 @@
+{
+  "files": ["**/*.{js,mjs,cjs,jsx}"],
+  "env": {
+    "browser": true
+  },
+  "plugins": ["react", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "next/babel",
+    "plugin:prettier/recommended",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "ignorePatterns": ["node_modules", "build", "dist", "*.min.js"]
+}
