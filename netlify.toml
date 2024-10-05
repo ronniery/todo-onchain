@@ -1,6 +1,7 @@
 # example netlify.toml
 [build]
-  command = "cd app && yarn run build"
+  base = "app"
+  command = "yarn run build"
   functions = "netlify/functions"
   publish = ""
 
