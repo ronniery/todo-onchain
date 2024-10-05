@@ -1,6 +1,6 @@
-# Solana To-Do Application
+# To-Do Onchain Application
 
-A simple and scalable To-Do application built with Next.js, React, Tailwind CSS, TypeScript, and powered by the Solana blockchain for decentralized task management. The app leverages the power of the Solana blockchain for transparent and immutable to-do list storage.
+A simple and To-Do application built with Next.js, React, Tailwind CSS, TypeScript, and powered by the **Solana blockchain** for decentralized task management. The app leverages the power of the Solana blockchain for transparent and immutable to-do list storage.
 
 ## Table of Contents
 
@@ -43,37 +43,37 @@ A simple and scalable To-Do application built with Next.js, React, Tailwind CSS,
 
 ```bash
 ├── app
-│   ├── components            # Reusable React components
-│   │   ├── Loading.js        # Loading spinner component
-│   │   └── todo              # Todo components folder
-│   │       ├── TodoItem.js   # Individual todo item component
-│   │       ├── TodoList.js   # List of todos component
-│   │       └── TodoSection.js# Todo section layout
-│   ├── constants             # Application-wide constants
-│   │   ├── index.js          # Index of constants
-│   │   └── todo.json         # Sample todos data
-│   ├── hooks                 # Custom React hooks
-│   │   └── todo.js           # Hook for managing todo state
-│   ├── index.ts              # Main entry point
-│   ├── next.config.js        # Next.js configuration
-│   ├── package.json          # Project dependencies
-│   ├── package-lock.json     # Package lock file
-│   ├── pages                 # Next.js pages folder
-│   │   ├── _app.js           # App component, global settings
-│   │   └── index.js          # Home page displaying todos
-│   ├── public                # Public static files
-│   │   └── favicon.ico       # Favicon for the app
-│   ├── README.md             # Documentation (this file)
-│   ├── styles                # Global and component-level styles
-│   │   ├── global.css        # Global styles
-│   │   ├── Home.module.css   # Styles for the Home page
-│   │   └── Todo.module.css   # Styles for Todo components
-│   ├── utils                 # Utility functions
-│   │   └── index.js          # Helper methods for the app
-│   └── yarn.lock             # Yarn lock file
-├── package.json              # Root package file
-├── tsconfig.json             # TypeScript configuration
-└── yarn.lock                 # Lock file for consistent package installations
+│   ├── components               # Reusable React components
+│   │   ├── Loading.js           # Loading spinner component
+│   │   └── todo                 # Todo components folder
+│   │       ├── TodoItem.js      # Individual todo item component
+│   │       ├── TodoList.js      # List of todos component
+│   │       └── TodoSection.js   # Todo section layout
+│   ├── constants                # Application-wide constants
+│   │   ├── index.js             # Index of constants
+│   │   └── todo.json            # Sample todos data
+│   ├── hooks                    # Custom React hooks
+│   │   └── todo.js              # Hook for managing todo state
+│   ├── index.ts                 # Main entry point
+│   ├── next.config.js           # Next.js configuration
+│   ├── package.json             # Project dependencies
+│   ├── package-lock.json        # Package lock file
+│   ├── pages                    # Next.js pages folder
+│   │   ├── _app.js              # App component, global settings
+│   │   └── index.js             # Home page displaying todos
+│   ├── public                   # Public static files
+│   │   └── favicon.ico          # Favicon for the app
+│   ├── README.md                # Documentation (this file)
+│   ├── styles                   # Global and component-level styles
+│   │   ├── global.css           # Global styles
+│   │   ├── Home.module.css      # Styles for the Home page
+│   │   └── Todo.module.css      # Styles for Todo components
+│   ├── utils                    # Utility functions
+│   │   └── index.js             # Helper methods for the app
+│   └── yarn.lock                # Yarn lock file
+├── package.json                 # Root package file
+├── tsconfig.json                # TypeScript configuration
+└── yarn.lock                    # Lock file for consistent package installations
 ```
 
 ## Installation
