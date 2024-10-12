@@ -12,7 +12,7 @@ const WalletMultiButtonDynamic = dynamic(
 const Home = () => {
   const {
     initialized,
-    initializeStaticUser,
+    initializeUser,
     loading,
     transactionPending,
     completedTodos,
@@ -20,9 +20,6 @@ const Home = () => {
     addTodo,
     markTodo,
     removeTodo,
-    markStaticTodo,
-    removeStaticTodo,
-    addStaticTodo,
     input,
     handleChange,
   } = useTodo();
@@ -34,7 +31,7 @@ const Home = () => {
           <div className={styles.todoInput}>
             <div className={`${styles.todoCheckbox} ${styles.checked}`} />
             <div className={styles.inputContainer}>
-              <form onSubmit={addStaticTodo}>
+              <form onSubmit={addTodo}>
                 <input
                   value={input}
                   onChange={handleChange}
@@ -50,7 +47,7 @@ const Home = () => {
           <button
             type="button"
             className={styles.button}
-            onClick={() => initializeStaticUser()}
+            onClick={() => initializeUser()}
             disabled={transactionPending}
           >
             Initialize
@@ -61,9 +58,8 @@ const Home = () => {
 
       <div className={styles.mainContainer}>
         <Loading loading={loading}>
-          <TodoSection title="Tasks" todos={incompleteTodos} action={markStaticTodo} />
-
-          <TodoSection title="Completed" todos={completedTodos} action={removeStaticTodo} />
+          <TodoSection title="Tasks" todos={incompleteTodos} action={markTodo} />
+          <TodoSection title="Completed" todos={completedTodos} action={removeTodo} />
         </Loading>
       </div>
     </div>
