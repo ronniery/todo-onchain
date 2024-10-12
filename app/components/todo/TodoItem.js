@@ -6,14 +6,14 @@ const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
     // Only allow unchecked todo to be marked
     if (marked) return;
 
-    action(idx);
+    action(publicKey, idx);
   };
 
   const handleRemoveTodo = () => {
     // Only allow checked todo to be removed
     if (!marked) return;
 
-    action(idx);
+    action(publicKey, idx);
   };
 
   return (
