@@ -12,5 +12,5 @@ pub enum TodoError {
     MathOverflow,
 
     #[msg("Already marked")]
-    AlreadyMarked
+    AlreadyMarked,
 }

@@ -18,10 +18,7 @@ const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
 
   return (
     <li key={idx} className={styles.todoItem}>
-      <div
-        onClick={handleMarkTodo}
-        className={`${styles.todoCheckbox} ${marked && styles.checked}`}
-      />
+      <div onClick={handleMarkTodo} className={`${styles.todoCheckbox} ${marked && styles.checked}`} />
       <div>
         <span className="todoText">{content}</span>
         {dateline && (
@@ -32,10 +29,7 @@ const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
         )}
       </div>
       <div className={styles.iconContainer}>
-        <TrashIcon
-          onClick={handleRemoveTodo}
-          className={`${styles.trashIcon} ${!marked && styles.checked}`}
-        />
+        <TrashIcon onClick={handleRemoveTodo} className={`${styles.trashIcon} ${!marked && styles.checked}`} />
       </div>
     </li>
   );

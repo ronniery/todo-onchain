@@ -5,8 +5,7 @@ import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 
 const WalletMultiButtonDynamic = dynamic(
-  async () =>
-    (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
+  async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
   { ssr: false }
 );
 
@@ -62,17 +61,9 @@ const Home = () => {
 
       <div className={styles.mainContainer}>
         <Loading loading={loading}>
-          <TodoSection
-            title="Tasks"
-            todos={incompleteTodos}
-            action={markStaticTodo}
-          />
+          <TodoSection title="Tasks" todos={incompleteTodos} action={markStaticTodo} />
 
-          <TodoSection
-            title="Completed"
-            todos={completedTodos}
-            action={removeStaticTodo}
-          />
+          <TodoSection title="Completed" todos={completedTodos} action={removeStaticTodo} />
         </Loading>
       </div>
     </div>

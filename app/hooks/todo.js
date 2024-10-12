@@ -6,11 +6,7 @@ import toast from 'react-hot-toast';
 import { SystemProgram } from '@solana/web3.js';
 import { utf8 } from '@project-serum/anchor/dist/cjs/utils/bytes';
 import { findProgramAddressSync } from '@project-serum/anchor/dist/cjs/utils/pubkey';
-import {
-  useAnchorWallet,
-  useConnection,
-  useWallet,
-} from '@solana/wallet-adapter-react';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { authorFilter } from '../utils';
 
 // Static data that reflects the todo struct of the solana program
@@ -73,11 +69,7 @@ export function useTodo() {
 
   const program = useMemo(() => {
     if (anchorWallet) {
-      const provider = new anchor.AnchorProvider(
-        connection,
-        anchorWallet,
-        anchor.AnchorProvider.defaultOptions()
-      );
+      const provider = new anchor.AnchorProvider(connection, anchorWallet, anchor.AnchorProvider.defaultOptions());
       return new anchor.Program(todoIDL, TODO_PROGRAM_PUBKEY, provider);
     }
   }, [connection, anchorWallet]);
@@ -143,14 +135,8 @@ export function useTodo() {
     );
   };
 
-  const incompleteTodos = useMemo(
-    () => todos.filter((todo) => !todo.account.marked),
-    [todos]
-  );
-  const completedTodos = useMemo(
-    () => todos.filter((todo) => todo.account.marked),
-    [todos]
-  );
+  const incompleteTodos = useMemo(() => todos.filter((todo) => !todo.account.marked), [todos]);
+  const completedTodos = useMemo(() => todos.filter((todo) => todo.account.marked), [todos]);
 
   return {
     initialized,

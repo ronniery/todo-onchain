@@ -5,12 +5,7 @@ const TodoList = ({ todos, action }) => {
   return (
     <ul className={styles.todoList}>
       {todos.map((todo) => (
-        <TodoItem
-          key={todo.account.idx}
-          {...todo.account}
-          publicKey={todo.publicKey}
-          action={action}
-        />
+        <TodoItem key={todo.account.idx} {...todo.account} publicKey={todo.publicKey} action={action} />
       ))}
     </ul>
   );
