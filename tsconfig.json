@@ -8,5 +8,5 @@
     "esModuleInterop": true
   },
   "include": ["app/**/*"],
-  "exclude": ["node_modules", "dist", "build"] 
+  "exclude": ["node_modules", "dist", "build"]
 }
