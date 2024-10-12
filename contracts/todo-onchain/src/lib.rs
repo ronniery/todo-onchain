@@ -29,28 +29,48 @@ pub mod todo_onchain {
         let todo_account = &mut ctx.accounts.todo_account;
         let user_profile = &mut ctx.accounts.user_profile;
         
-        // Fill the todo with the given data
+        // Fiil the todo with the given data
         todo_account.authority = ctx.accounts.authority.key();
         todo_account.content = _content;
         todo_account.idx = user_profile.last_todo;
         todo_account.marked = false;
 
+        // Increase todo idx for PDA
+        user_profile.last_todo = user_profile.last_todo.checked_add(1).unwrap();
+        user_profile.todo_count = user_profile.todo_count.checked_add(1).unwrap();
+
         Ok(())
     }
 
-    pub fn mark_todo {
+    pub fn mark_todo(
+        ctx: Context<MarkTodo>,
+        todo_idx: u8
+    ) -> Result<()> {
+        let todo_account = &mut ctx.accounts.todo_account;
         
+        // Check if a todo was already marked
+        require!(!todo_account.marked, TodoError::AlreadyMarked);
+
+        todo_account.marked = true;
+
+        Ok(())
     }
 
-    // Continue: https://youtu.be/3_zoGgffxac?si=IirVvfWJgFrkoZhD&t=6217
-    // https://beta.solpg.io/
-    // Add values for the default data
+    pub fn remove_todo(
+        ctx: Context<RemoveTodo>, 
+        todo_idx: u8
+    ) -> Result<()> {
+        // Decrement total todo count
+        let user_profile = &mut ctx.accounts.user_profile;
+        user_profile.todo_count = user_profile.todo_count
+        .checked_sub(1)
+        .unwrap();
 
-    // Add TODO
-    // Mark TODO completed/uncompleted
-    // Delete TODO
-    // [plus] Pin TODO
-    // [plus] Add memo to TODO
+        // No need to decrease last todo idx
+        // Todo PDA is already closed in context
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -89,10 +109,62 @@ pub struct AddTodo<'info> {
         init,
         seeds = [TODO_TAG, authority.key().as_ref(), &[user_profile.last_todo as u8].as_ref()],
         bump,
-        payer = authority
+        payer = authority,
         space = 8 + std::mem::size_of::<TodoAccount>()
     )]
     pub todo_account: Box<Account<'info, TodoAccount>>,
 
     pub system_program: Program<'info, System>
+}
+
+#[derive(Accounts)]
+#[instruction(todo_idx: u8)]
+pub struct MarkTodo<'info> {
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+
+    #[account(
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority
+    )]
+    pub user_profile: Box<Account<'info, UserProfile>>,
+
+    #[account(
+        mut,
+        seeds =[TODO_TAG, authority.key().as_ref(), &[todo_idx].as_ref()],
+        bump,
+        has_one = authority
+    )]
+    pub todo_account: Box<Account<'info, TodoAccount>>
+}
+
+#[derive(Accounts)]
+#[instruction(todo_idx: u8)]
+pub struct RemoveTodo<'info> {
+    #[account(mut)]
+    pub authority: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+
+    #[account(
+        mut,
+        seeds = [USER_TAG, authority.key().as_ref()],
+        bump,
+        has_one = authority
+    )]
+    pub user_profile: Box<Account<'info, UserProfile>>,
+
+    #[account(
+        mut,
+        close = authority,
+        seeds = [TODO_TAG, authority.key().as_ref(), &[todo_idx].as_ref()],
+        bump,
+        has_one = authority
+    )]
+    pub todo_account: Box<Account<'info, TodoAccount>>
+
 }
