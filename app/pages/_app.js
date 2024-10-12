@@ -14,10 +14,8 @@ function App({ Component, pageProps }) {
         <WalletConnectProvider>
           <Component {...pageProps} />
         </WalletConnectProvider>
-        
-        <Toaster 
-          position='bottom-left'
-        />
+
+        <Toaster position="bottom-left" />
       </main>
     </>
   );

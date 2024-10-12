@@ -165,23 +165,27 @@ export function useTodo() {
 
   const removeTodo = async (todoPda, todoIdx) => {
     try {
-      if(program && publicKey) {
+      if (program && publicKey) {
         setTransactionPending(true);
         setLoading(true);
 
-        const [profilePda] = findProgramAddressSync([utf8.encode('USER_STATE'), publicKey.toBuffer()], program.programId);
+        const [profilePda] = findProgramAddressSync(
+          [utf8.encode('USER_STATE'), publicKey.toBuffer()],
+          program.programId
+        );
 
-        await program.methods.removeTodo(todoIdx)
-        .accounts({
-          userProfile: profilePda,
-          todoAccount: todoPda,
-          authority: publicKey,
-          SystemProgram: SystemProgram.programId,
-        })
-        .rpc()
-        .then(() => {
-          toast.success('Successfully removed todo');
-        })
+        await program.methods
+          .removeTodo(todoIdx)
+          .accounts({
+            userProfile: profilePda,
+            todoAccount: todoPda,
+            authority: publicKey,
+            SystemProgram: SystemProgram.programId,
+          })
+          .rpc()
+          .then(() => {
+            toast.success('Successfully removed todo');
+          });
       }
     } catch (error) {
       console.log(error);
@@ -190,7 +194,7 @@ export function useTodo() {
       setTransactionPending(false);
       setLoading(false);
     }
-  }
+  };
 
   const incompleteTodos = useMemo(() => todos.filter((todo) => !todo.account.marked), [todos]);
   const completedTodos = useMemo(() => todos.filter((todo) => todo.account.marked), [todos]);
