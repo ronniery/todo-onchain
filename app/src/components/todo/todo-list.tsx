@@ -2,10 +2,10 @@ import { ProgramAccount } from '@coral-xyz/anchor';
 import { type PublicKey } from '@solana/web3.js';
 import { v4 as uuidv4 } from 'uuid';
 
-import styles from '$styles/Todo.module.css';
-import { Todo } from '$types/common';
+import { Todo } from '@/types/common';
 
-import TodoItem from './TodoItem';
+import TodoItem from './todo-item';
+import styles from './todo-list.module.css';
 
 export type TodoListProps = {
   todos: ProgramAccount<Todo>[];

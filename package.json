@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" -w",
-    "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" --check",
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json,.css,.scss}\" -w",
+    "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json,.css,.scss}\" --check",
     "anchor:build": "./scripts/build.sh",
     "postinstall": "./scripts/postinstall.sh && yarn run anchor:build",
     "install:all": "cd app && yarn install",

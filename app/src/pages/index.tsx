@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { useTodo } from '$hooks/todo';
-import Loading from '$components/Loading';
-import TodoSection from '$components/todo/TodoSection';
-import styles from '$styles/Home.module.css';
+import { useTodo } from '@/hooks/todo';
+import Loading from '@/components/loading';
+import TodoSection from '@/components/todo/todo-section';
+
+import styles from './index.module.css';
 
 const WalletMultiButtonDynamic = dynamic(
   async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
@@ -31,7 +32,7 @@ const Home: React.FC = (): JSX.Element => {
       <div className={styles.actionsContainer}>
         {initialized ? (
           <div className={styles.todoInput}>
-            <div className={`${styles.todoCheckbox} ${styles.checked}`} />
+            <div className={`@/{styles.todoCheckbox} @/{styles.checked}`} />
             <div className={styles.inputContainer}>
               <form onSubmit={addTodo}>
                 <input

@@ -1,10 +1,10 @@
 import { PublicKey } from '@solana/web3.js';
 import { ProgramAccount } from '@coral-xyz/anchor';
 
-import styles from '$styles/Todo.module.css';
-import { Todo } from '$types/common';
+import { Todo } from '@/types/common';
 
-import TodoList from './TodoList';
+import TodoList from './todo-list';
+import styles from './todo-section.module.css';
 
 export type TodoSectionProps = {
   title: string;

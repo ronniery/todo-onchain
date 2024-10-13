@@ -1,8 +1,9 @@
 import { PublicKey } from '@solana/web3.js';
 import { CalendarIcon, TrashIcon } from '@heroicons/react/outline';
 
-import { Todo } from '$types/common';
-import styles from '$styles/Todo.module.css';
+import { Todo } from '@/types/common';
+
+import styles from './todo-item.module.css';
 
 export type TodoItemProps = {
   todo: Todo & { dateline?: string };

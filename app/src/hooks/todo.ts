@@ -5,9 +5,9 @@ import { utf8 } from '@coral-xyz/anchor/dist/cjs/utils/bytes';
 import { Program, ProgramAccount, Idl, AnchorProvider, setProvider } from '@coral-xyz/anchor';
 import toast from 'react-hot-toast';
 
-import todoIDL from '$constants/todo.json';
-import { authorFilter } from '$utils';
-import { TodoOnchain, Todo, UserProfile } from '$types/common';
+import todoIDL from '@/constants/todo.json';
+import { authorFilter } from '@/utils';
+import { TodoOnchain, Todo, UserProfile } from '@/types/common';
 
 type UseTodo = {
   initialized: boolean;
