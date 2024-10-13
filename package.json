@@ -1,9 +1,11 @@
 {
   "scripts": {
-    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" -w",
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" -w && yarn run rust:format && yarn run rust:lint",
     "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" --check",
-    "rust:format": "cargo clippy --manifest-path contracts/todo-onchain",
-    "rust:lint": "cargo fmt --manifest-path contracts/todo-onchain"
+    "anchor:build": "./scripts/anchor-build.sh",
+    "postinstall": "./scripts/postinstall.sh && yarn run anchor:build",
+    "rust:format": "cargo clippy --manifest-path programs/todo-onchain/ --fix",
+    "rust:lint": "cargo fmt --manifest-path programs/todo-onchain/"
   },
   "dependencies": {
     "@project-serum/anchor": "^0.24.2",
