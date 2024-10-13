@@ -1,16 +1,16 @@
-import * as anchor from "@coral-xyz/anchor";
-import { Program } from "@coral-xyz/anchor";
-import { TodoOnchain } from "../target/types/todo_onchain";
+import * as anchor from '@coral-xyz/anchor';
+import { Program } from '@coral-xyz/anchor';
+import { TodoOnchain } from '../target/types/todo_onchain';
 
-describe("todo-onchain", () => {
+describe('todo-onchain', () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const program = anchor.workspace.TodoOnchain as Program<TodoOnchain>;
 
-  it("Is initialized!", async () => {
+  it('Is initialized!', async () => {
     // Add your test here.
     const tx = await program.methods.initialize().rpc();
-    console.log("Your transaction signature", tx);
+    console.log('Your transaction signature', tx);
   });
 });
