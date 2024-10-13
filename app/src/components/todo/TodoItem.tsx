@@ -1,16 +1,19 @@
+import { PublicKey } from '@solana/web3.js';
 import styles from '../../styles/Todo.module.css';
 import { CalendarIcon, TrashIcon } from '@heroicons/react/outline';
+import { ProgramAccount } from '@coral-xyz/anchor';
+import { Todo } from '@/types/todo';
 
 export type TodoItemProps = {
-  idx: number;
-  content: string;
-  marked: boolean;
-  dateline?: string;
-  publicKey: string;
-  action: (publicKey: string, idx: number) => void;
+  todo: Todo & { dateline?: string };
+  publicKey: PublicKey;
+  action: (publicKey: PublicKey, idx: number) => void;
 }
 
-const TodoItem = ({ idx, content, marked, dateline, publicKey, action }: TodoItemProps): JSX.Element => {
+const TodoItem = ({ todo, publicKey, action }: TodoItemProps): JSX.Element => {
+  debugger;
+  const { idx, content, marked, dateline } = todo;
+
   const handleMarkTodo = () => {
     // Only allow unchecked todo to be marked
     if (marked) return;

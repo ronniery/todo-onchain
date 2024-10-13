@@ -1,11 +1,12 @@
 import { PublicKey } from '@solana/web3.js';
 import styles from '../../styles/Todo.module.css';
 import TodoList from './TodoList';
-import { TodoAccount } from '@/types/todo-account';
+import { Todo } from '@/types/todo';
+import { ProgramAccount } from '@coral-xyz/anchor';
 
 export type TodoSectionProps = {
   title: string;
-  todos: TodoAccount[]; // TODO: Change it
+  todos: ProgramAccount<Todo>[];
   action: (publicKey: PublicKey, idx: number) => Promise<void>;
 }
 

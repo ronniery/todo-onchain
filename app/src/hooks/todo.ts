@@ -8,9 +8,10 @@ import { utf8 } from '@coral-xyz/anchor/dist/cjs/utils/bytes';
 import { AnchorWallet, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { authorFilter } from '../utils';
 import { TodoOnchain } from '../types/todo-onchain';
-import { TodoAccount } from '@/types/todo-account';
+import { Todo } from '@/types/todo';
 import { UserProfile } from '@/types/user-profile';
 import { Program, ProgramAccount } from '@coral-xyz/anchor';
+import { Idl, AnchorProvider, setProvider } from "@coral-xyz/anchor";
 
 export function useTodo() {
   const anchorWallet: AnchorWallet | undefined = useAnchorWallet();
@@ -18,7 +19,7 @@ export function useTodo() {
 
   const [initialized, setInitialized] = useState<boolean>(false);
   const [lastTodo, setLastTodo] = useState<number>(0);
-  const [todos, setTodos] = useState<TodoAccount[]>([]);
+  const [todos, setTodos] = useState<ProgramAccount<Todo>[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [transactionPending, setTransactionPending] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
@@ -28,7 +29,7 @@ export function useTodo() {
       const provider = new anchor.AnchorProvider(connection, anchorWallet, anchor.AnchorProvider.defaultOptions());
       anchor.setProvider(provider);
 
-      return new anchor.Program(todoIDL as anchor.Idl, provider) as Program<TodoOnchain>;
+      return new Program(todoIDL as Idl, provider) as unknown as Program<TodoOnchain>;
     }
   }, [connection, anchorWallet]);
 
@@ -49,8 +50,8 @@ export function useTodo() {
             setLastTodo(profileAccount.lastTodo);
             setInitialized(true);
 
-            const todoAccounts: ProgramAccount<TodoAccount>[] = await program.account.todoAccount.all([authorFilter(publicKey.toString())]);
-            setTodos(todoAccounts.map((account: ProgramAccount<TodoAccount>): TodoAccount => account.account));
+            const todoAccounts: ProgramAccount<Todo>[] = await program.account.todoAccount.all([authorFilter(publicKey.toString())]);
+            setTodos(todoAccounts);
           } else {
             setInitialized(false);
           }
@@ -202,8 +203,8 @@ export function useTodo() {
     }
   };
 
-  const incompleteTodos: TodoAccount[] = useMemo(() => todos.filter((todo) => !todo.marked), [todos]);
-  const completedTodos: TodoAccount[] = useMemo(() => todos.filter((todo) => todo.marked), [todos]);
+  const incompleteTodos: ProgramAccount<Todo>[] = useMemo(() => todos.filter(({ account }) => !account.marked), [todos]);
+  const completedTodos: ProgramAccount<Todo>[] = useMemo(() => todos.filter(({ account}) => account.marked), [todos]);
 
   return {
     initialized,
