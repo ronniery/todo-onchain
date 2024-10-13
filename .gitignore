@@ -42,6 +42,10 @@ yarn-error.log*
 .anchor
 .DS_Store
 target
+!target/idl
+!target/idl/*
+!target/types
+!target/types/*
 **/*.rs.bk
 test-ledger
 
