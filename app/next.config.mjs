@@ -1,7 +1,7 @@
-const path = require('path');
+import path from 'path';
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+export default {
   reactStrictMode: false,
   webpack5: true,
   webpack: (config) => {

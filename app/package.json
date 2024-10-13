@@ -1,18 +1,18 @@
 {
-  "name": "todo-app",
+  "license": "Apache-2.0",
+  "name": "todo-onchain",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "open": "npx netlify open"
+    "lint": "next lint"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.0",
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
-    "@project-serum/anchor": "^0.26.0",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
@@ -21,7 +21,8 @@
     "next": "12.2.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "18.2.0",
-    "react-hot-toast": "^2.3.0"
+    "react-hot-toast": "^2.3.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",

@@ -4,10 +4,10 @@
 anchor build
 
 # Copy the generated IDL file to the app constants folder
-cp -r ./target/idl/todo_onchain.json ./app/constants/todo.json
+cp ./target/idl/todo_onchain.json ./app/src/constants/todo.json
 
 # Copy the generated types file to the app types folder
-cp -r ./target/types/todo_onchain.ts ./app/types/idl.ts
+cp -r ./target/types/todo_onchain.ts ./app/src/types/todo-onchain.ts
 
 # Print a success message
 echo "Build completed and files copied successfully."

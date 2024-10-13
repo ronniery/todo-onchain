@@ -1,7 +1,16 @@
 import styles from '../../styles/Todo.module.css';
 import { CalendarIcon, TrashIcon } from '@heroicons/react/outline';
 
-const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
+export type TodoItemProps = {
+  idx: number;
+  content: string;
+  marked: boolean;
+  dateline?: string;
+  publicKey: string;
+  action: (publicKey: string, idx: number) => void;
+}
+
+const TodoItem = ({ idx, content, marked, dateline, publicKey, action }: TodoItemProps): JSX.Element => {
   const handleMarkTodo = () => {
     // Only allow unchecked todo to be marked
     if (marked) return;
