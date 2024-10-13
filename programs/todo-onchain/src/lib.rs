@@ -21,14 +21,11 @@ pub mod todo_onchain {
         Ok(())
     }
 
-    pub fn add_todo(
-     ctx: Context<AddTodo>,
-     _content: String
-    ) -> Result<()> {
+    pub fn add_todo(ctx: Context<AddTodo>, _content: String) -> Result<()> {
         // Add a new todo item for a user profile within the blockchain
         let todo_account = &mut ctx.accounts.todo_account;
         let user_profile = &mut ctx.accounts.user_profile;
-        
+
         // Fiil the todo with the given data
         todo_account.authority = ctx.accounts.authority.key();
         todo_account.content = _content;
@@ -42,12 +39,9 @@ pub mod todo_onchain {
         Ok(())
     }
 
-    pub fn mark_todo(
-        ctx: Context<MarkTodo>,
-        _todo_idx: u8
-    ) -> Result<()> {
+    pub fn mark_todo(ctx: Context<MarkTodo>, _todo_idx: u8) -> Result<()> {
         let todo_account = &mut ctx.accounts.todo_account;
-        
+
         // Check if a todo was already marked
         require!(!todo_account.marked, TodoError::AlreadyMarked);
 
@@ -56,15 +50,10 @@ pub mod todo_onchain {
         Ok(())
     }
 
-    pub fn remove_todo(
-        ctx: Context<RemoveTodo>, 
-        _todo_idx: u8
-    ) -> Result<()> {
+    pub fn remove_todo(ctx: Context<RemoveTodo>, _todo_idx: u8) -> Result<()> {
         // Decrement total todo count
         let user_profile = &mut ctx.accounts.user_profile;
-        user_profile.todo_count = user_profile.todo_count
-        .checked_sub(1)
-        .unwrap();
+        user_profile.todo_count = user_profile.todo_count.checked_sub(1).unwrap();
 
         // No need to decrease last todo idx
         // Todo PDA is already closed in context
@@ -107,14 +96,14 @@ pub struct AddTodo<'info> {
 
     #[account(
         init,
-        seeds = [TODO_TAG, authority.key().as_ref(), &[user_profile.last_todo as u8].as_ref()],
+        seeds = [TODO_TAG, authority.key().as_ref(), &[user_profile.last_todo].as_ref()],
         bump,
         payer = authority,
         space = 8 + std::mem::size_of::<TodoAccount>()
     )]
     pub todo_account: Box<Account<'info, TodoAccount>>,
 
-    pub system_program: Program<'info, System>
+    pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
@@ -139,7 +128,7 @@ pub struct MarkTodo<'info> {
         bump,
         has_one = authority
     )]
-    pub todo_account: Box<Account<'info, TodoAccount>>
+    pub todo_account: Box<Account<'info, TodoAccount>>,
 }
 
 #[derive(Accounts)]
@@ -165,6 +154,5 @@ pub struct RemoveTodo<'info> {
         bump,
         has_one = authority
     )]
-    pub todo_account: Box<Account<'info, TodoAccount>>
-
+    pub todo_account: Box<Account<'info, TodoAccount>>,
 }
