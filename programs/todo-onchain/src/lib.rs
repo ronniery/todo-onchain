@@ -44,7 +44,7 @@ pub mod todo_onchain {
 
     pub fn mark_todo(
         ctx: Context<MarkTodo>,
-        todo_idx: u8
+        _todo_idx: u8
     ) -> Result<()> {
         let todo_account = &mut ctx.accounts.todo_account;
         
@@ -58,7 +58,7 @@ pub mod todo_onchain {
 
     pub fn remove_todo(
         ctx: Context<RemoveTodo>, 
-        todo_idx: u8
+        _todo_idx: u8
     ) -> Result<()> {
         // Decrement total todo count
         let user_profile = &mut ctx.accounts.user_profile;
