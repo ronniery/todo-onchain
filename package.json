@@ -4,11 +4,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" -w && yarn run rust:format && yarn run rust:lint",
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" -w",
     "lint": "prettier */*.js \"*/**/*{.js,.ts,.tsx,.json}\" --check",
     "anchor:build": "./scripts/build.sh",
     "postinstall": "./scripts/postinstall.sh && yarn run anchor:build",
     "install:all": "cd app && yarn install",
+    "rust:fl": "yarn run rust:format && yarn run rust:lint",
     "rust:format": "cargo clippy -p todo-onchain --fix",
     "rust:lint": "cargo fmt --manifest-path programs/todo-onchain/Cargo.toml --all"
   },

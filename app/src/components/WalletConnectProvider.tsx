@@ -9,7 +9,7 @@ export type WalletConnectProviderProps = {
   children: ReactNode;
 };
 
-export const WalletConnectProvider = ({ children }: WalletConnectProviderProps): JSX.Element => {
+const WalletConnectProvider = ({ children }: WalletConnectProviderProps): JSX.Element => {
   const endpoint = clusterApiUrl('devnet');
   const wallets = useMemo(() => [new PhantomWalletAdapter(), new TrustWalletAdapter(), new AlphaWalletAdapter()], []);
 
@@ -21,3 +21,5 @@ export const WalletConnectProvider = ({ children }: WalletConnectProviderProps):
     </ConnectionProvider>
   );
 };
+
+export default WalletConnectProvider;

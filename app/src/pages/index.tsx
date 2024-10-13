@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { useTodo } from '../hooks/todo';
-import Loading from '../components/Loading';
-import TodoSection from '../components/todo/TodoSection';
-import styles from '../styles/Home.module.css';
+import { useTodo } from '$hooks/todo';
+import Loading from '$components/Loading';
+import TodoSection from '$components/todo/TodoSection';
+import styles from '$styles/Home.module.css';
 
 const WalletMultiButtonDynamic = dynamic(
   async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,

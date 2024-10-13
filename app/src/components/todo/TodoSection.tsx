@@ -1,14 +1,16 @@
 import { PublicKey } from '@solana/web3.js';
-import styles from '../../styles/Todo.module.css';
-import TodoList from './TodoList';
-import { Todo } from '@/types/todo';
 import { ProgramAccount } from '@coral-xyz/anchor';
+
+import styles from '$styles/Todo.module.css';
+import { Todo } from '$types/common';
+
+import TodoList from './TodoList';
 
 export type TodoSectionProps = {
   title: string;
   todos: ProgramAccount<Todo>[];
   action: (publicKey: PublicKey, idx: number) => Promise<void>;
-}
+};
 
 const TodoSection = ({ title, todos, action }: TodoSectionProps): JSX.Element => {
   return (

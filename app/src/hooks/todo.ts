@@ -1,19 +1,30 @@
-import * as anchor from '@coral-xyz/anchor';
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
-import { TODO_PROGRAM_PUBKEY } from '../constants';
-import todoIDL from '../constants/todo.json';
-import toast from 'react-hot-toast';
+import { AnchorWallet, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram } from '@solana/web3.js';
 import { utf8 } from '@coral-xyz/anchor/dist/cjs/utils/bytes';
-import { AnchorWallet, useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { authorFilter } from '../utils';
-import { TodoOnchain } from '../types/todo-onchain';
-import { Todo } from '@/types/todo';
-import { UserProfile } from '@/types/user-profile';
-import { Program, ProgramAccount } from '@coral-xyz/anchor';
-import { Idl, AnchorProvider, setProvider } from "@coral-xyz/anchor";
+import { Program, ProgramAccount, Idl, AnchorProvider, setProvider } from '@coral-xyz/anchor';
+import toast from 'react-hot-toast';
 
-export function useTodo() {
+import todoIDL from '$constants/todo.json';
+import { authorFilter } from '$utils';
+import { TodoOnchain, Todo, UserProfile } from '$types/common';
+
+type UseTodo = {
+  initialized: boolean;
+  initializeUser: () => Promise<void>;
+  loading: boolean;
+  transactionPending: boolean;
+  completedTodos: ProgramAccount<Todo>[];
+  incompleteTodos: ProgramAccount<Todo>[];
+  markTodo: (todoPda: PublicKey, todoIdx: number) => Promise<void>;
+  removeTodo: (todoPda: PublicKey, todoIdx: number) => Promise<void>;
+  addTodo: (event: FormEvent) => Promise<void>;
+  input: string;
+  setInput: (input: string) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export function useTodo(): UseTodo {
   const anchorWallet: AnchorWallet | undefined = useAnchorWallet();
   const [{ connection }, { publicKey }] = [useConnection(), useWallet()];
 
@@ -22,12 +33,12 @@ export function useTodo() {
   const [todos, setTodos] = useState<ProgramAccount<Todo>[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [transactionPending, setTransactionPending] = useState<boolean>(false);
-  const [input, setInput] = useState<string>('');
+  const [todoContent, setTodoContent] = useState<string>('');
 
   const program = useMemo(() => {
     if (anchorWallet) {
-      const provider = new anchor.AnchorProvider(connection, anchorWallet, anchor.AnchorProvider.defaultOptions());
-      anchor.setProvider(provider);
+      const provider = new AnchorProvider(connection, anchorWallet, AnchorProvider.defaultOptions());
+      setProvider(provider);
 
       return new Program(todoIDL as Idl, provider) as unknown as Program<TodoOnchain>;
     }
@@ -50,7 +61,9 @@ export function useTodo() {
             setLastTodo(profileAccount.lastTodo);
             setInitialized(true);
 
-            const todoAccounts: ProgramAccount<Todo>[] = await program.account.todoAccount.all([authorFilter(publicKey.toString())]);
+            const todoAccounts: ProgramAccount<Todo>[] = await program.account.todoAccount.all([
+              authorFilter(publicKey.toString()),
+            ]);
             setTodos(todoAccounts);
           } else {
             setInitialized(false);
@@ -69,7 +82,7 @@ export function useTodo() {
   }, [publicKey, program, transactionPending]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value);
+    setTodoContent(event.target.value);
   };
 
   const initializeUser = async (): Promise<void> => {
@@ -119,9 +132,9 @@ export function useTodo() {
           program.programId
         );
 
-        if (input) {
+        if (todoContent) {
           await program.methods
-            .addTodo(input)
+            .addTodo(todoContent)
             .accounts({
               userProfile: profilePda,
               todoAccount: todoPda,
@@ -133,38 +146,38 @@ export function useTodo() {
           toast.success('Successfully added todo');
         }
       }
-
     } catch (err) {
       toast.error('Failed to add todo');
       console.log(err);
     } finally {
       setTransactionPending(false);
-      setInput(''); // Reset input field after submission
+      setTodoContent(''); // Reset input field after submission
     }
   };
 
   const markTodo = async (todoPda: PublicKey, todoIdx: number) => {
     try {
-      if (program &&publicKey) {
+      if (program && publicKey) {
         setTransactionPending(true);
-      setLoading(true);
+        setLoading(true);
 
-      const [profilePda] = PublicKey.findProgramAddressSync([utf8.encode('USER_STATE'), publicKey.toBuffer()], program.programId);
+        const [profilePda] = PublicKey.findProgramAddressSync(
+          [utf8.encode('USER_STATE'), publicKey.toBuffer()],
+          program.programId
+        );
 
-      await program.methods
-        .markTodo(todoIdx)
-        .accounts({
-          userProfile: profilePda,
-          todoAccount: todoPda,
-          authority: publicKey,
-          systemProgram: SystemProgram.programId,
-        })
-        .rpc();
+        await program.methods
+          .markTodo(todoIdx)
+          .accounts({
+            userProfile: profilePda,
+            todoAccount: todoPda,
+            authority: publicKey,
+            systemProgram: SystemProgram.programId,
+          })
+          .rpc();
 
-      toast.success('Successfully marked todo');
-      };
-
-      
+        toast.success('Successfully marked todo');
+      }
     } catch (error) {
       console.log(error);
       toast.error('Failed to mark todo');
@@ -180,7 +193,10 @@ export function useTodo() {
         setTransactionPending(true);
         setLoading(true);
 
-        const [profilePda] = PublicKey.findProgramAddressSync([utf8.encode('USER_STATE'), publicKey.toBuffer()], program.programId);
+        const [profilePda] = PublicKey.findProgramAddressSync(
+          [utf8.encode('USER_STATE'), publicKey.toBuffer()],
+          program.programId
+        );
 
         await program.methods
           .removeTodo(todoIdx)
@@ -203,8 +219,11 @@ export function useTodo() {
     }
   };
 
-  const incompleteTodos: ProgramAccount<Todo>[] = useMemo(() => todos.filter(({ account }) => !account.marked), [todos]);
-  const completedTodos: ProgramAccount<Todo>[] = useMemo(() => todos.filter(({ account}) => account.marked), [todos]);
+  const incompleteTodos: ProgramAccount<Todo>[] = useMemo(
+    () => todos.filter(({ account }) => !account.marked),
+    [todos]
+  );
+  const completedTodos: ProgramAccount<Todo>[] = useMemo(() => todos.filter(({ account }) => account.marked), [todos]);
 
   return {
     initialized,
@@ -216,8 +235,8 @@ export function useTodo() {
     markTodo,
     removeTodo,
     addTodo,
-    input,
-    setInput,
+    input: todoContent,
+    setInput: setTodoContent,
     handleChange,
   };
 }

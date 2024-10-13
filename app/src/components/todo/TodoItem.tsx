@@ -1,17 +1,16 @@
 import { PublicKey } from '@solana/web3.js';
-import styles from '../../styles/Todo.module.css';
 import { CalendarIcon, TrashIcon } from '@heroicons/react/outline';
-import { ProgramAccount } from '@coral-xyz/anchor';
-import { Todo } from '@/types/todo';
+
+import { Todo } from '$types/common';
+import styles from '$styles/Todo.module.css';
 
 export type TodoItemProps = {
   todo: Todo & { dateline?: string };
   publicKey: PublicKey;
   action: (publicKey: PublicKey, idx: number) => void;
-}
+};
 
 const TodoItem = ({ todo, publicKey, action }: TodoItemProps): JSX.Element => {
-  debugger;
   const { idx, content, marked, dateline } = todo;
 
   const handleMarkTodo = () => {

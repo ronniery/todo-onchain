@@ -3,7 +3,7 @@ type AutorFilterConfig = {
     offset: number;
     bytes: string;
   };
-}
+};
 
 export const authorFilter = (authorBase58PublicKey: string): AutorFilterConfig => ({
   memcmp: {
