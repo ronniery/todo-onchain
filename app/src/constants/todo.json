@@ -9,7 +9,16 @@
   "instructions": [
     {
       "name": "add_todo",
-      "discriminator": [188, 16, 45, 145, 4, 5, 188, 75],
+      "discriminator": [
+        188,
+        16,
+        45,
+        145,
+        4,
+        5,
+        188,
+        75
+      ],
       "accounts": [
         {
           "name": "authority",
@@ -37,7 +46,16 @@
     },
     {
       "name": "initialize_user",
-      "discriminator": [111, 17, 185, 250, 60, 122, 38, 254],
+      "discriminator": [
+        111,
+        17,
+        185,
+        250,
+        60,
+        122,
+        38,
+        254
+      ],
       "accounts": [
         {
           "name": "authority",
@@ -56,7 +74,16 @@
     },
     {
       "name": "mark_todo",
-      "discriminator": [70, 24, 206, 243, 92, 29, 249, 110],
+      "discriminator": [
+        70,
+        24,
+        206,
+        243,
+        92,
+        29,
+        249,
+        110
+      ],
       "accounts": [
         {
           "name": "authority",
@@ -84,7 +111,16 @@
     },
     {
       "name": "remove_todo",
-      "discriminator": [28, 167, 91, 69, 25, 225, 253, 117],
+      "discriminator": [
+        28,
+        167,
+        91,
+        69,
+        25,
+        225,
+        253,
+        117
+      ],
       "accounts": [
         {
           "name": "authority",
@@ -114,11 +150,29 @@
   "accounts": [
     {
       "name": "TodoAccount",
-      "discriminator": [31, 86, 84, 40, 187, 31, 251, 132]
+      "discriminator": [
+        31,
+        86,
+        84,
+        40,
+        187,
+        31,
+        251,
+        132
+      ]
     },
     {
       "name": "UserProfile",
-      "discriminator": [32, 37, 119, 205, 179, 180, 13, 194]
+      "discriminator": [
+        32,
+        37,
+        119,
+        205,
+        179,
+        180,
+        13,
+        194
+      ]
     }
   ],
   "errors": [

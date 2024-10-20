@@ -3,7 +3,6 @@ import path from 'path';
 /** @type {import('next').NextConfig} */
 export default {
   reactStrictMode: false,
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,

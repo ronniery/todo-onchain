@@ -14,20 +14,13 @@
     "rust:lint": "cargo fmt --manifest-path programs/todo-onchain/Cargo.toml --all"
   },
   "devDependencies": {
-    "@eslint/js": "^9.12.0",
     "@types/bn.js": "^5.1.6",
     "@types/chai": "^5.0.0",
     "@types/mocha": "^10.0.9",
     "chai": "^5.1.1",
-    "eslint": "^9.12.0",
-    "eslint-config-next": "^14.2.15",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.1",
     "globals": "^15.11.0",
     "mocha": "^10.7.3",
     "prettier": "^3.3.3",
-    "prettier-plugin-rust": "^0.1.9",
     "ts-mocha": "^10.0.0"
   }
 }
