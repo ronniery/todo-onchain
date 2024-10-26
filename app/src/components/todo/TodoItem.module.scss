@@ -1,0 +1,68 @@
+.todoItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: var(--br-2xl);
+  padding: 1rem;
+
+  .todoCheckbox {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--accent-color);
+    border-radius: var(--br-lg);
+    cursor: pointer;
+
+    &.checked {
+      background-color: var(--accent-color);
+      background-image: url('https://assets.website-files.com/6115beb90ba52ed7fd418b93/6115d9d2a9d14f72c43355c5_icon-check-dark-small.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  .todoText {
+    &.checked {
+      text-decoration: line-through;
+    }
+  }
+
+  .todoDateline {
+    display: flex;
+    align-items: center;
+    margin-top: 0.375rem;
+    color: var(--accent-color);
+
+    .calendarIcon {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    span {
+      margin-left: 0.375rem;
+      font-size: var(--fs-sm);
+    }
+
+    .checked & {
+      color: var(--gray-color);
+      opacity: 0.5;
+    }
+  }
+
+  .iconContainer {
+    margin-left: auto;
+
+    .trashIcon {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--accent-color);
+      cursor: pointer;
+
+      &.checked {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

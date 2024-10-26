@@ -101,3 +101,16 @@ body {
   background-color: var(--primary-color);
   color: var(--gray-color);
 }
+
+@media (max-width: 390px) { 
+  .wallet-adapter-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .wallet-adapter-dropdown-list {
+    width: 94%;
+    
+  }
+
+}

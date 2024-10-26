@@ -2,6 +2,9 @@ import path from 'path';
 
 /** @type {import('next').NextConfig} */
 export default {
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'],
+  },
   reactStrictMode: false,
   webpack: (config) => {
     config.resolve.fallback = {

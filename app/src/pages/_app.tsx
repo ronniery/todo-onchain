@@ -7,7 +7,7 @@ import { WalletConnectProvider } from '@/components';
 
 import '../styles/global.css';
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
