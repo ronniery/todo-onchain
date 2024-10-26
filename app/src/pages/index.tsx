@@ -1,13 +1,10 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { useTodo } from '@/hooks/UseTodos';
-import Loading from '@/components/Loading';
-import TodoSection from '@/components/todo/TodoSection';
-
-import styles from './index.module.scss';
-import { Divider, Grid2, IconButton, InputAdornment, InputBase, Paper, TextField } from '@mui/material';
-import { MenuIcon, SearchIcon, ArrowRightIcon, MenuAlt1Icon } from '@heroicons/react/outline';
+import { useTodo } from '../hooks/UseTodos';
+import Loading from '../components/Loading';
+import TodoSection from '../components/todo/TodoSection';
+import styles from '../styles/Home.module.scss';
 
 const WalletMultiButtonDynamic = dynamic(
   async () => (await import('@solana/wallet-adapter-react-ui')).WalletMultiButton,
@@ -34,7 +31,7 @@ const Home: React.FC = (): JSX.Element => {
       <div className={styles.actionsContainer}>
         {initialized ? (
           <div className={styles.todoInput}>
-            <div className={`@/{styles.todoCheckbox} @/{styles.checked}`} />
+            <div className={`${styles.todoCheckbox} ${styles.checked}`} />
             <div className={styles.inputContainer}>
               <form onSubmit={addTodo}>
                 <input
@@ -67,35 +64,6 @@ const Home: React.FC = (): JSX.Element => {
           <TodoSection title="Completed" todos={completedTodos} action={removeTodo} />
         </Loading>
       </div>
-
-      <Grid2 container justifyContent={'center'} display={'flex'} alignContent={'center'}>
-        <Grid2 size={8} >
-        <TextField
-        id="input-with-icon-textfield"
-        sx={{
-          '::placeholder': {
-            color: '#ccc',
-          },
-          color: 'white',
-        }}
-        
-        fullWidth
-        slotProps={{
-          input: {
-            sx: {
-              color: 'white'
-            },
-            startAdornment: (
-              <InputAdornment position="start">
-                <MenuAlt1Icon />
-              </InputAdornment>
-            ),
-          },
-        }}
-        variant="standard"
-      />
-        </Grid2>
-      </Grid2>
     </div>
   );
 };

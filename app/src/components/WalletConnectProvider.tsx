@@ -2,7 +2,7 @@ import { useMemo, ReactNode } from 'react';
 
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter, AlphaWalletAdapter, TrustWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
 
 export type WalletConnectProviderProps = {
@@ -11,7 +11,7 @@ export type WalletConnectProviderProps = {
 
 const WalletConnectProvider = ({ children }: WalletConnectProviderProps): JSX.Element => {
   const endpoint = clusterApiUrl('devnet');
-  const wallets = useMemo(() => [new PhantomWalletAdapter(), new TrustWalletAdapter(), new AlphaWalletAdapter()], []);
+  const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
   return (
     <ConnectionProvider endpoint={endpoint}>
